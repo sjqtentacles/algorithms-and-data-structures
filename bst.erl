@@ -1,5 +1,5 @@
 -module(bst).
--export([bst_create/0, b
+-compile(export_all).
 
 % bst_create(), bst_insert(Bst, N), and bst_search(Bst,N) are copied from
 % https://gist.github.com/vedantk/1432100
@@ -29,5 +29,12 @@ bst_search(Bst, N) ->
         N > Root -> bst_search(Rhs, N)
       end
   end.
+
+invert(Bst) ->
+    case Bst of
+        [] -> [];
+        [N, [], []] -> [N, [], []];
+        [Root, Lhs, Rhs] -> [Root, invert(Rhs), invert(Lhs)]
+    end.
 
 %need to write a method for balancing the tree
